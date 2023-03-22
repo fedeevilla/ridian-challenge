@@ -14,7 +14,7 @@ const ReturnComponent = ({ top10 }: Props): JSX.Element => {
       <h1 className="mr-4 font-light">Returns</h1>
       <div className="flex justify-center gap-4">
         {top10.map((item) => (
-          <Badge key={item.item} item={item} />
+          <Badge key={item.simbol} item={item} />
         ))}
       </div>
     </div>

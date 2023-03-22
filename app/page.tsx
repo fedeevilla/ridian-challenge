@@ -1,4 +1,5 @@
 import NavsComponent from "@/components/Navs";
+import PlaceTradeComponent from "@/components/PlaceTrade";
 import ReturnComponent from "@/components/Return";
 import { ReturnType } from "@/types";
 
@@ -29,10 +30,10 @@ async function Returns() {
   const { top_10: top10 } = await api.fetchTop10();
 
   const data: ReturnType[] = await Promise.all(
-    top10.map(async (item) => {
+    top10.map(async (simbol) => {
       return {
-        item,
-        return: (await api.fetchReturn(item)).return,
+        simbol,
+        return: (await api.fetchReturn(simbol)).return,
       };
     })
   );
@@ -41,5 +42,5 @@ async function Returns() {
 }
 
 async function PlaceTrade() {
-  return <h2>PlaceTrade</h2>;
+  return <PlaceTradeComponent />;
 }

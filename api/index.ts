@@ -28,4 +28,23 @@ export const api = {
 
     return res.json();
   },
+  placeTrade: async (simbol: string): Promise<ReturnType> => {
+    const res = await fetch(
+      `https://dummy-backend-rttuh5f3wq-uc.a.run.app/place_trade/${simbol}`,
+      {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  },
 };

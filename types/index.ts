@@ -1,5 +1,5 @@
 export type ReturnType = {
-  item: string;
+  simbol: string;
   return: number;
 };
 

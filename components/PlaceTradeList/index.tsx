@@ -5,7 +5,7 @@ interface Props {
   places: PlaceType[];
 }
 const PlaceTradeList = ({ places }: Props) => {
-  const ref = useRef(null);
+  const ref = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });

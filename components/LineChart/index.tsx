@@ -89,7 +89,7 @@ const LineChart = ({ navs }: Props): JSX.Element => {
     <div className="max-w-4xl p-4 m-auto">
       <div className="flex items-center justify-center gap-4">
         <label
-          className="block text-sm font-medium text-gray-900 "
+          className="block text-sm text-gray-900 font-extralight"
           htmlFor="type"
         >
           Select a view option

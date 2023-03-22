@@ -7,7 +7,7 @@ import { api } from "../api";
 
 export default async function Page() {
   return (
-    <div className="container m-auto">
+    <div className="container h-screen m-auto">
       {/* @ts-expect-error Server Component */}
       <Nav />
       <hr />

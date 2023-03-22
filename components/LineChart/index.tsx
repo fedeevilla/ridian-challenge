@@ -89,13 +89,13 @@ const LineChart = ({ navs }: Props): JSX.Element => {
     <div className="max-w-4xl p-4 m-auto">
       <div className="flex items-center justify-center gap-4">
         <label
-          className="block text-sm font-medium text-gray-900 dark:text-gray-400"
+          className="block text-sm font-medium text-gray-900 "
           htmlFor="type"
         >
-          Select an option
+          Select a view option
         </label>
         <select
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block p-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
           id="type"
           value={type}
           onChange={(e) => setType(e.target.value as Types)}

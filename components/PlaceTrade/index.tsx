@@ -28,6 +28,16 @@ const PlaceTradeComponent = (): JSX.Element => {
 
       setPlaces((prev) => [...prev, { ...result, symbol: text }]);
       setText("");
+      toast.success(`Great, you've bought ${text} successfully!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       toast.error("Something went wrong", {
         position: "top-right",

@@ -32,10 +32,13 @@ interface Props {
 }
 
 const LineChart = ({ navs }: Props): JSX.Element => {
-  const labels = Object.keys(navs.daily_navs["1"]).sort();
-  const labelsHourly = Object.keys(navs.hourly_navs["1"]).sort();
+  const hourly_navs = navs.hourly_navs["1"];
+  const daily_navs = navs.daily_navs["1"];
 
-  const [type, setType] = useState<Types>("lastWeek");
+  const labels = Object.keys(daily_navs).sort();
+  const labelsHourly = Object.keys(hourly_navs).sort();
+
+  const [type, setType] = useState<Types>("lastDay");
   const [formData, setFormData] = useState<string[]>();
   const [formLabels, setFormLabels] = useState<string[]>(labels.slice(-7));
 
@@ -48,27 +51,23 @@ const LineChart = ({ navs }: Props): JSX.Element => {
             .map((hour) => `${hour.split(" ")[0]} - ${hour.split(" ")[1]}hs`)
         );
         setFormData(
-          labelsHourly
-            .slice(-24)
-            .map((label: string) => navs.hourly_navs["1"][label])
+          labelsHourly.slice(-24).map((label: string) => hourly_navs[label])
         );
         break;
       case "lastWeek":
         setFormLabels(labels.slice(-7));
-        setFormData(
-          labels.slice(-7).map((label: string) => navs.daily_navs["1"][label])
-        );
+        setFormData(labels.slice(-7).map((label: string) => daily_navs[label]));
         break;
       case "lastMonth":
         setFormLabels(labels.slice(-30));
         setFormData(
-          labels.slice(-30).map((label: string) => navs.daily_navs["1"][label])
+          labels.slice(-30).map((label: string) => daily_navs[label])
         );
         break;
       default:
         setFormLabels(labels.slice(-365));
         setFormData(
-          labels.slice(-365).map((label: string) => navs.daily_navs["1"][label])
+          labels.slice(-365).map((label: string) => daily_navs[label])
         );
         break;
     }

@@ -30,10 +30,10 @@ async function Returns() {
   const { top_10: top10 } = await api.fetchTop10();
 
   const data: ReturnType[] = await Promise.all(
-    top10.map(async (simbol) => {
+    top10.map(async (symbol) => {
       return {
-        simbol,
-        return: (await api.fetchReturn(simbol)).return,
+        symbol,
+        return: (await api.fetchReturn(symbol)).return,
       };
     })
   );

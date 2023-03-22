@@ -1,26 +1,44 @@
 "use client";
 
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
-import { api } from "@/api";
+import { PlaceType } from "@/types";
 
 import Button from "../Button";
+import PlaceTradeList from "../PlaceTradeList";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const PlaceTradeComponent = (): JSX.Element => {
-  const [text, setText] = useState<string>("BTC");
+  const [text, setText] = useState<string>("");
   const [sumbitting, setSubmitting] = useState<boolean>(false);
-  const [places, setPlaces] = useState<any[]>([]);
+  const [places, setPlaces] = useState<PlaceType[]>([]);
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     try {
       setSubmitting(true);
-      const res = await api.placeTrade(text);
+      const res = await fetch("api/place_trade", {
+        method: "POST",
+        body: text,
+      });
 
-      setPlaces((prev) => [...prev, { ...res, simbol: text }]);
+      const result = await res.json();
+
+      setPlaces((prev) => [...prev, { ...result, symbol: text }]);
       setText("");
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } finally {
       setSubmitting(false);
     }
@@ -31,47 +49,25 @@ const PlaceTradeComponent = (): JSX.Element => {
       <form className="flex justify-center gap-4 m-4" onSubmit={handleSubmit}>
         <div>
           <input
+            autoFocus
             required
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter a Simbol"
+            maxLength={3}
+            placeholder="Enter a Symbol"
             type="text"
             value={text}
-            onChange={(ev) => setText(ev.target.value)}
+            onChange={(ev) => setText(ev.target.value.toUpperCase())}
           />
         </div>
         <Button
           disabled={sumbitting || text.length === 0}
-          label="Trade"
+          label="Buy"
           sumbitting={sumbitting}
           type="submit"
         />
       </form>
-      <table className="text-sm text-left text-gray-500 bg-white border-collapse">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-4 font-medium text-gray-900" scope="col">
-              Simbol
-            </th>
-            <th className="px-6 py-4 font-medium text-gray-900" scope="col">
-              Price
-            </th>
-            <th className="px-6 py-4 font-medium text-gray-900" scope="col">
-              Date
-            </th>
-          </tr>
-        </thead>
-        <tbody className="border-t border-gray-100 divide-y divide-gray-100">
-          {places.map((place, index) => {
-            return (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="px-6 py-4">{place.simbol}</td>
-                <td className="px-6 py-4">$ {place.price.toFixed(2)}</td>
-                <td className="px-6 py-4">{place.date}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <PlaceTradeList places={places} />
+      <ToastContainer />
     </div>
   );
 };

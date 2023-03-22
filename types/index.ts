@@ -1,5 +1,5 @@
 export type ReturnType = {
-  simbol: string;
+  symbol: string;
   return: number;
 };
 
@@ -10,4 +10,10 @@ export type Top10Type = {
 export type NavsType = {
   daily_navs: Record<string, string>[];
   hourly_navs: Record<string, string>[];
+};
+
+export type PlaceType = {
+  symbol: string;
+  price: number;
+  date: string;
 };
